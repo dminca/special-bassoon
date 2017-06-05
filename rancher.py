@@ -37,4 +37,4 @@ def main():
 if __name__ == '__main__':
     main()
 
-# vim: fdm=indent
+# vim: fdm=indent: tw=79
