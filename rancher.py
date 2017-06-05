@@ -9,7 +9,7 @@ apikeys_url = payload.json()['links']['apiKeys']
 requests.get(apikeys_url).json()
 
 # create admin account with API Key
-def create_account(role='1a1', description=None, acc_id, public_key=None, private_key=None):
+def create_account(role, description, acc_id, public_key, private_key):
     """Create an account with API Keys
 
     Create an admin account and generate API Keys for it.
@@ -17,7 +17,7 @@ def create_account(role='1a1', description=None, acc_id, public_key=None, privat
     """
     data = {
             'accountId': role,
-            'description': 'optional',
+            'description': description,
             'name': acc_id,
             'publicValue': public_key,
             'secretValue': private_key }
@@ -25,10 +25,14 @@ def create_account(role='1a1', description=None, acc_id, public_key=None, privat
 
     req = requests.post(apikeys_url, data)
 
-    if req.status_code == requests.codes.ok:
-        print("Account created!")
+    if req.status_code == 201:
+        print(req.json())
+    else:
+        print("{} {}".format(req.status_code, 'ERROR'))
 
-    return req.json()
+
+def main():
+    pass
 
 if __name__ == '__main__':
     main()
